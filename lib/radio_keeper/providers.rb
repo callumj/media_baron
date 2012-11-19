@@ -1,0 +1,1 @@
+require 'radio_keeper/providers/bbc'
