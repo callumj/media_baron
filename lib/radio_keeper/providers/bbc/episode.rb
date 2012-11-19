@@ -74,31 +74,6 @@ module RadioKeeper
 
           file
         end
-
-        def as_m4a(bitrate = nil)
-          file = dump(bitrate)
-
-          raise "Couldn't locate the file (#{file.path})" unless File.exists?(file.path)
-          ffmpeg_base = "#{RadioKeeper.ffmpeg_bin} -i #{file.path}"
-          bitrate = 128
-          Open3.popen3(ffmpeg_base) do |stdin, stdout, stderr, wait_thr|
-            stderr_bitrate = REGEX_FFMPEG.match(stderr.read())
-            if (stderr_bitrate.nil?)
-              stdout_bitrate = REGEX_FFMPEG.match(stdout.read())
-              bitrate = stdout_bitrate[1].to_i unless stdout_bitrate.nil?
-            else
-              bitrate = stderr_bitrate[1].to_i
-            end
-          end
-
-          output = Tempfile.new(["ffmpeg",".m4a"])
-          ffmpeg_full = "#{ffmpeg_base} -metadata artist=\"#{@author}\" -metadata title=\"#{@title}\" -metadata comments=\"#{@description}\" -acodec libfaac -ab #{bitrate}k -ar 44100 -ac 2 -y -loglevel panic #{output.path}"
-          `#{ffmpeg_full}`
-
-          file.unlink
-
-          output
-        end
       end
     end
   end
