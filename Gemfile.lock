@@ -3,6 +3,7 @@ PATH
   specs:
     radio_keeper (0.1)
       activesupport
+      nokogiri
 
 GEM
   remote: http://rubygems.org/
