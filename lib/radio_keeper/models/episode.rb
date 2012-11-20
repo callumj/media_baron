@@ -16,6 +16,10 @@ module RadioKeeper
       def dump(bitrate = nil)
       end
 
+      def tracks_played
+        []
+      end
+
       def as_m4a(bitrate = nil)
         file = dump(bitrate)
 

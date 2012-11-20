@@ -25,6 +25,13 @@ Use this library for personal use only, where possible purchase music and suppor
 show = RadioKeeper::Providers::BBC::Show.new "http://www.bbc.co.uk/programmes/b006ww0v"
 episode = show.latest_episode
 
+title = episode.title
+description = episode.description
+author = episode.author
+date = episode.date
+
+tracks_played = episode.tracks_played
+
 m4a_file = episode.as_m4a
 ```
 
