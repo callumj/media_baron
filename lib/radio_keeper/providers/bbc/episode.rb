@@ -33,6 +33,21 @@ module RadioKeeper
           @date = Time.parse item_ref.xpath("broadcast").first
 
           @file_name = "#{@title.gsub(RadioKeeper::REGEX_BAD_TITLE, "-")}.m4a"
+
+          episode_response = Net::HTTP.get_response(URI.parse "http://www.bbc.co.uk/programmes/#{@episode_identifier}")
+          @episode_page = Nokogiri::HTML episode_response.body
+          @episode_page.remove_namespaces!
+        end
+
+        def tracks_played
+          music_segments = @episode_page.xpath "//ul[@class='segments']//li[@typeof='po:MusicSegment']"
+          music_segments.map do |list_item|
+            artist = list_item.xpath(".//span[@property='foaf:name']").first.text
+            track = list_item.xpath(".//span[@property='dc:title']").first.text
+            label = list_item.xpath(".//span[@class='record-label']").first.text rescue nil
+
+            {:artist => artist, :track => track, :label => label}
+          end
         end
 
         def media_document
