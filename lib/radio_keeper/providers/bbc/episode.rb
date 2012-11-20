@@ -30,7 +30,10 @@ module RadioKeeper
           item_ref = @playlist.xpath("playlist/item").first
           @media_identifier = item_ref.attribute "identifier" unless item_ref.nil?
 
-          @date = Time.parse item_ref.xpath("broadcast").first
+          broadcast_date = item_ref.xpath("broadcast").first
+          unless broadcast_date.nil?
+            @date = Time.parse(broadcast_date)
+          end
 
           @file_name = "#{@title.gsub(RadioKeeper::REGEX_BAD_TITLE, "-")}.m4a"
 
