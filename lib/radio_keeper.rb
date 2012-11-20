@@ -22,4 +22,8 @@ module RadioKeeper
     RadioKeeper::Tools.find_executable "ffmpeg"
   end
 
+  def self.qt_faststart_bin
+    RadioKeeper::Tools.find_executable "qt-faststart"
+  end
+
 end

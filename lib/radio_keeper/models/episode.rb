@@ -44,7 +44,22 @@ module RadioKeeper
 
         file.unlink
 
-        output
+        if RadioKeeper.qt_faststart_bin.nil?
+          output
+        else
+          fast_file = Tempfile.new(["qt_faststart",".m4a"])
+
+          `#{RadioKeeper.qt_faststart_bin} #{output.path} #{fast_file.path}`
+
+          fast_file.seek(0)
+          if fast_file.size > 0
+            output.unlink
+            fast_file
+          else
+            output.seek(0)
+            output
+          end
+        end
       end
 
     end
