@@ -8,6 +8,7 @@ module RadioKeeper
         def initialize(addr, opts = {})
           if addr.match(REGEX_PARSE)
             @episode_identifier = $2
+            addr = "http://www.bbc.co.uk/iplayer/playlist/#{@episode_identifier}"
           else
             @episode_identifier = addr
             addr = "http://www.bbc.co.uk/iplayer/playlist/#{addr}"
