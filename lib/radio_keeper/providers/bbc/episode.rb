@@ -35,7 +35,12 @@ module RadioKeeper
             @date = Time.parse(broadcast_date)
           end
 
-          @file_name = "#{@title.gsub(RadioKeeper::REGEX_BAD_TITLE, "-")}.m4a"
+          @file_name = "#{@title.gsub(RadioKeeper::REGEX_BAD_TITLE, "-")}"
+          if @date.present?
+            @file_name << "-#{@date.strftime("%d-%m-%Y")}"
+          end
+
+          @file_name << ".m4a"
 
           episode_response = Net::HTTP.get_response(URI.parse "http://www.bbc.co.uk/programmes/#{@episode_identifier}")
           @episode_page = Nokogiri::HTML episode_response.body
