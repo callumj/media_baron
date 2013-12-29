@@ -6,7 +6,7 @@ require "rspec/core/rake_task"
 
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
-require 'media_mogul'
+require 'media_baron'
 
 RSpec::Core::RakeTask.new("spec") do |spec|
     spec.pattern = "spec/**/*_spec.rb"

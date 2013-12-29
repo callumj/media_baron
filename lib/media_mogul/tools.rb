@@ -1,4 +1,4 @@
-module MediaMogul
+module MediaBaron
   module Tools
 
     def self.find_executable(exec)

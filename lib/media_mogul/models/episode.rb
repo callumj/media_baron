@@ -1,4 +1,4 @@
-module MediaMogul
+module MediaBaron
   module Models
     class Episode
 
@@ -19,14 +19,14 @@ module MediaMogul
       end
 
       def as_m4a(bitrate = nil)
-        raise "Required binaries (ffmpeg & rtmpdump) are not available" unless MediaMogul.stable?
+        raise "Required binaries (ffmpeg & rtmpdump) are not available" unless MediaBaron.stable?
         
         file = dump(bitrate)
 
         return nil if file.nil?
 
         raise "Couldn't locate the file (#{file.path})" unless File.exists?(file.path)
-        ffmpeg_base = "#{MediaMogul.ffmpeg_bin} -i #{file.path}"
+        ffmpeg_base = "#{MediaBaron.ffmpeg_bin} -i #{file.path}"
         bitrate = 128
         Open3.popen3(ffmpeg_base) do |stdin, stdout, stderr, wait_thr|
           stderr_bitrate = REGEX_FFMPEG.match(stderr.read())
@@ -44,12 +44,12 @@ module MediaMogul
 
         file.unlink
 
-        if MediaMogul.qt_faststart_bin.nil?
+        if MediaBaron.qt_faststart_bin.nil?
           output
         else
           fast_file = Tempfile.new(["qt_faststart",".m4a"])
 
-          `#{MediaMogul.qt_faststart_bin} #{output.path} #{fast_file.path}`
+          `#{MediaBaron.qt_faststart_bin} #{output.path} #{fast_file.path}`
 
           fast_file.seek(0)
           if fast_file.size > 0

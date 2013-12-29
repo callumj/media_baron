@@ -1,2 +1,2 @@
-require 'media_mogul/models/show'
-require 'media_mogul/models/episode'
+require 'media_baron/models/show'
+require 'media_baron/models/episode'

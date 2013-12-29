@@ -2,13 +2,13 @@ require 'nokogiri'
 require 'tempfile'
 require 'addressable/uri'
 
-module MediaMogul
+module MediaBaron
   module Providers
     module TripleJ
       class JPlay
 
         def initialize
-          @parsed = Addressable::URI.parse MediaMogul::Providers::TripleJ::J_PLAY
+          @parsed = Addressable::URI.parse MediaBaron::Providers::TripleJ::J_PLAY
           @connection = Faraday.new(url: @parsed.origin) do |faraday|
             faraday.request  :url_encoded
             faraday.use FaradayMiddleware::FollowRedirects

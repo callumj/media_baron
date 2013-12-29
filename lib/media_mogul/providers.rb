@@ -1,2 +1,2 @@
-require 'media_mogul/providers/bbc'
-require 'media_mogul/providers/triple_j'
+require 'media_baron/providers/bbc'
+require 'media_baron/providers/triple_j'

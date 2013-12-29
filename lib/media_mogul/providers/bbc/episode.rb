@@ -1,7 +1,7 @@
-module MediaMogul
+module MediaBaron
   module Providers
     module BBC
-      class Episode < MediaMogul::Models::Episode
+      class Episode < MediaBaron::Models::Episode
 
         attr_reader :episode_identifier, :media_identifier
 
@@ -35,7 +35,7 @@ module MediaMogul
             @date = Time.parse(broadcast_date)
           end
 
-          @file_name = "#{@title.gsub(MediaMogul::REGEX_BAD_TITLE, "-")}"
+          @file_name = "#{@title.gsub(MediaBaron::REGEX_BAD_TITLE, "-")}"
           if @date.present?
             @file_name << "-#{@date.strftime("%d-%m-%Y")}"
           end
@@ -92,7 +92,7 @@ module MediaMogul
 
           file = Tempfile.new(["rtmpdump",".flv"])
           application_ref = "#{target[:application]}?#{target[:string]}"
-          rtmpdump_args = [MediaMogul.rtmpdump_bin, "-r \"rtmp://#{target[:server]}:1935/#{application_ref}\"", "-a \"#{application_ref}\"", "-y \"#{target[:identifier]}\"", "-q", "-o \"#{file.path}\""]
+          rtmpdump_args = [MediaBaron.rtmpdump_bin, "-r \"rtmp://#{target[:server]}:1935/#{application_ref}\"", "-a \"#{application_ref}\"", "-y \"#{target[:identifier]}\"", "-q", "-o \"#{file.path}\""]
           dump_command =  rtmpdump_args.join " "
           `#{dump_command}`
 

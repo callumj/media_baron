@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    media_mogul (0.1)
+    media_baron (0.1)
       activesupport
       nokogiri
 
@@ -50,7 +50,7 @@ DEPENDENCIES
   amatch
   faraday
   faraday_middleware
-  media_mogul!
+  media_baron!
   nokogiri
   pry
   rake

@@ -5,10 +5,10 @@ require 'tempfile'
 require 'open3'
 require 'cgi'
 
-module MediaMogul
+module MediaBaron
   module Providers
     module BBC
-      class Show < MediaMogul::Models::Show
+      class Show < MediaBaron::Models::Show
 
         def initialize(addr, opts = {})
 
@@ -51,7 +51,7 @@ module MediaMogul
 
           return nil if input_ref.nil?
 
-          input_ref.match(MediaMogul::Providers::BBC::REGEX_PARSE) ? $2 : nil
+          input_ref.match(MediaBaron::Providers::BBC::REGEX_PARSE) ? $2 : nil
         end
 
         def latest_episode

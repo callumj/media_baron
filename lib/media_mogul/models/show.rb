@@ -1,4 +1,4 @@
-module MediaMogul
+module MediaBaron
   module Models
     class Show
 

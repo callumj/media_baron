@@ -1,15 +1,15 @@
 require 'nokogiri'
 require 'addressable/uri'
 
-module MediaMogul
+module MediaBaron
   module Providers
     module TripleJ
-      class Show < MediaMogul::Models::Show
+      class Show < MediaBaron::Models::Show
 
         def initialize(addr, opts = {})
 
           unless addr.start_with?("http://")
-            addr = "#{MediaMogul::Providers::TripleJ::OFFICIAL_URL}/#{addr}"
+            addr = "#{MediaBaron::Providers::TripleJ::OFFICIAL_URL}/#{addr}"
           end
 
           super addr, opts

@@ -1,10 +1,10 @@
 require 'nokogiri'
 require 'addressable/uri'
 
-module MediaMogul
+module MediaBaron
   module Providers
     module TripleJ
-      class Episode < MediaMogul::Models::Show
+      class Episode < MediaBaron::Models::Show
 
         def listing
           if address.match(/SearchPlaylists.aspx/)

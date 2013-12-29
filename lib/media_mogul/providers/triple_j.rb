@@ -1,4 +1,4 @@
-module MediaMogul
+module MediaBaron
   module Providers
     module TripleJ
       OFFICIAL_URL = "http://www.abc.net.au/triplej"
@@ -7,6 +7,6 @@ module MediaMogul
   end
 end
 
-require 'media_mogul/providers/triple_j/show'
-require 'media_mogul/providers/triple_j/episode'
-require 'media_mogul/providers/triple_j/j_play'
+require 'media_baron/providers/triple_j/show'
+require 'media_baron/providers/triple_j/episode'
+require 'media_baron/providers/triple_j/j_play'
