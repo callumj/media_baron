@@ -5,10 +5,10 @@ require 'tempfile'
 require 'open3'
 require 'cgi'
 
-module RadioKeeper
+module MediaMogul
   module Providers
     module BBC
-      class Show < RadioKeeper::Models::Show
+      class Show < MediaMogul::Models::Show
 
         def initialize(addr, opts = {})
 
@@ -20,7 +20,7 @@ module RadioKeeper
             end
           end
 
-          super
+          super addr, opts
 
           response = Net::HTTP.get_response(URI.parse self.address)
 
@@ -51,7 +51,7 @@ module RadioKeeper
 
           return nil if input_ref.nil?
 
-          input_ref.match(RadioKeeper::Providers::BBC::REGEX_PARSE) ? $2 : nil
+          input_ref.match(MediaMogul::Providers::BBC::REGEX_PARSE) ? $2 : nil
         end
 
         def latest_episode

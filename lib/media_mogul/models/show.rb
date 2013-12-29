@@ -1,4 +1,4 @@
-module RadioKeeper
+module MediaMogul
   module Models
     class Show
 
@@ -6,8 +6,6 @@ module RadioKeeper
       attr_reader :title, :description
 
       def initialize(addr, opts = {})
-        raise "Required binaries (ffmpeg & rtmpdump) are not available" unless RadioKeeper.stable?
-
         self.address = addr
 
         self

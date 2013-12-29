@@ -1,7 +1,7 @@
-require 'radio_keeper/providers/bbc/show'
-require 'radio_keeper/providers/bbc/episode'
+require 'media_mogul/providers/bbc/show'
+require 'media_mogul/providers/bbc/episode'
 
-module RadioKeeper
+module MediaMogul
   module Providers
     module BBC
       REGEX_PARSE = /(programmes|episode)\/([A-Za-z0-9]*)\/?/

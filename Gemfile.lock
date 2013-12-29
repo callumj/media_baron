@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    radio_keeper (0.1)
+    media_mogul (0.1)
       activesupport
       nokogiri
 
@@ -11,10 +11,24 @@ GEM
     activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.5)
+    amatch (0.2.11)
+      tins (~> 0.3)
+    coderay (1.1.0)
     diff-lcs (1.1.3)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     i18n (0.6.1)
+    method_source (0.8.2)
     multi_json (1.3.7)
+    multipart-post (1.2.0)
     nokogiri (1.5.5)
+    pry (0.9.12.4)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rake (10.0.1)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
@@ -24,13 +38,20 @@ GEM
     rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.0)
+    slop (3.4.7)
+    tins (0.13.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activesupport
+  addressable
+  amatch
+  faraday
+  faraday_middleware
+  media_mogul!
   nokogiri
-  radio_keeper!
+  pry
   rake
   rspec

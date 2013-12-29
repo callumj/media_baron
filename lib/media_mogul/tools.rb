@@ -1,4 +1,4 @@
-module RadioKeeper
+module MediaMogul
   module Tools
 
     def self.find_executable(exec)

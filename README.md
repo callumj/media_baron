@@ -1,12 +1,16 @@
-# Radio Keeper
+# Media Mogul
 
-This Ruby library provides the ability to download online radio shows.
+A RUby library for listing content played in media shows with the ability to download where available.
 
 It utilises rtmpdump and ffmpeg to convert the RTMP stream into a more usable m4a format.
 
 # Copyright
 
 Use this library for personal use only, where possible purchase music and support artists.
+
+# Supported providers
+
+* BBC (MediaMogul::Providers::BBC)
 
 # Requirements
 
@@ -22,7 +26,7 @@ Use this library for personal use only, where possible purchase music and suppor
 # Example
 
 ```ruby
-show = RadioKeeper::Providers::BBC::Show.new "http://www.bbc.co.uk/programmes/b006ww0v"
+show = MediaMogul::Providers::BBC::Show.new "http://www.bbc.co.uk/programmes/b006ww0v"
 episode = show.latest_episode
 
 title = episode.title
@@ -35,8 +39,4 @@ tracks_played = episode.tracks_played
 m4a_file = episode.as_m4a
 ```
 
-RadioKeeper::Models::Episode#as_m4a will call RadioKeeper::Models::Episode#dump to obtain the highest bitrate RTMP dump, which it will then convert to m4a using ffmpeg's libfaac
-
-# Supported providers
-
-* BBC (RadioKeeper::Providers::BBC)
+MediaMogul::Models::Episode#as_m4a will call MediaMogul::Models::Episode#dump to obtain the highest bitrate RTMP dump, which it will then convert to m4a using ffmpeg's libfaac

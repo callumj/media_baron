@@ -1,4 +1,4 @@
-module RadioKeeper
+module MediaMogul
   module Models
     class Episode
 
@@ -6,8 +6,6 @@ module RadioKeeper
       attr_reader :title, :description, :date, :file_name, :author
 
       def initialize(addr, opts = {})
-        raise "Required binaries (ffmpeg & rtmpdump) are not available" unless RadioKeeper.stable?
-
         self.address = addr
 
         self
@@ -21,12 +19,14 @@ module RadioKeeper
       end
 
       def as_m4a(bitrate = nil)
+        raise "Required binaries (ffmpeg & rtmpdump) are not available" unless MediaMogul.stable?
+        
         file = dump(bitrate)
 
         return nil if file.nil?
 
         raise "Couldn't locate the file (#{file.path})" unless File.exists?(file.path)
-        ffmpeg_base = "#{RadioKeeper.ffmpeg_bin} -i #{file.path}"
+        ffmpeg_base = "#{MediaMogul.ffmpeg_bin} -i #{file.path}"
         bitrate = 128
         Open3.popen3(ffmpeg_base) do |stdin, stdout, stderr, wait_thr|
           stderr_bitrate = REGEX_FFMPEG.match(stderr.read())
@@ -44,12 +44,12 @@ module RadioKeeper
 
         file.unlink
 
-        if RadioKeeper.qt_faststart_bin.nil?
+        if MediaMogul.qt_faststart_bin.nil?
           output
         else
           fast_file = Tempfile.new(["qt_faststart",".m4a"])
 
-          `#{RadioKeeper.qt_faststart_bin} #{output.path} #{fast_file.path}`
+          `#{MediaMogul.qt_faststart_bin} #{output.path} #{fast_file.path}`
 
           fast_file.seek(0)
           if fast_file.size > 0
