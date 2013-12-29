@@ -7,6 +7,7 @@ gem "rspec"
 
 # Make Ruby better                                                                   
 gem "activesupport"
+gem "tzinfo"
 
 # Awesome parser
 gem "nokogiri"
