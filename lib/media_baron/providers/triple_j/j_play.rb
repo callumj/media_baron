@@ -72,7 +72,8 @@ module MediaBaron
             
             timing = children[0].text
             link   = children[1].try { |l| l.css("a").first.try :[], :href }
-            name   = children[2].text.strip
+            name   = children[2].xpath(".//a[contains(@id,'linkSong')]").try :text
+            artist = children[2].xpath(".//a[contains(@id,'linkArtist')]").try :text
 
             time_point = nil
             if timing && parsed_date
@@ -83,9 +84,10 @@ module MediaBaron
             {
               timing: time_point,
               link: link,
-              name: name
+              name: name,
+              artist: artist
             }
-          end
+          end.compact
         end
 
       end
