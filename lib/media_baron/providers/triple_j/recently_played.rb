@@ -1,5 +1,6 @@
 require 'addressable/uri'
 require 'faraday'
+require 'faraday_middleware'
 
 module MediaBaron
   module Providers
