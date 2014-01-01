@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'tempfile'
 require 'addressable/uri'
+require 'faraday'
 
 module MediaBaron
   module Providers

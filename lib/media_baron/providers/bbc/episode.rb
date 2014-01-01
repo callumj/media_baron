@@ -1,3 +1,10 @@
+require 'net/http'
+require 'uri'
+require 'nokogiri'
+require 'tempfile'
+require 'open3'
+require 'cgi'
+
 module MediaBaron
   module Providers
     module BBC

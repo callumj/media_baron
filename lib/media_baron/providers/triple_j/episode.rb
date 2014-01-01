@@ -1,6 +1,3 @@
-require 'nokogiri'
-require 'addressable/uri'
-
 module MediaBaron
   module Providers
     module TripleJ

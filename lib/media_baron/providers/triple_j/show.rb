@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'addressable/uri'
+require 'faraday'
 
 module MediaBaron
   module Providers
