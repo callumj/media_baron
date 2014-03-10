@@ -3,7 +3,12 @@ PATH
   specs:
     media_baron (0.1)
       activesupport
+      addressable
+      amatch
+      faraday
+      faraday_middleware
       nokogiri
+      tzinfo
 
 GEM
   remote: http://rubygems.org/
