@@ -33,20 +33,18 @@ module MediaBaron
         end
 
         def populate_values
-          @title = @page.xpath("//*[@typeof='po:Brand']").attribute('title').value
-          @description = @page.xpath("//*[@property='dc:description']").attribute('content').value
+          @title = @page.xpath("//div[@class='br-masthead__title']/div/a").attribute('title').value
+          @description = @page.xpath("//*[@property='og:description']").attribute('content').value
         end
 
         def latest_episode_ref
           input_ref = nil
-          ref_point = @page.xpath("//h2[contains(text(),'Latest episode')]").first
+          ref_point = @page.xpath("//h2[contains(text(),'On demand')]").first
 
-          while(ref_point != nil && ref_point['href'].nil?)
+          input_ref = nil
+
+          while (ref_point != nil && (input_ref = ref_point['href'] || ref_point['resource']).nil?)
             ref_point = ref_point.next_element
-          end
-
-          unless ref_point.nil?
-            input_ref = ref_point['href']
           end
 
           return nil if input_ref.nil?

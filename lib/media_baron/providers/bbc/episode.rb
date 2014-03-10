@@ -35,7 +35,7 @@ module MediaBaron
           @author = @playlist.xpath("playlist/item/passionSite").first.text
 
           item_ref = @playlist.xpath("playlist/item[@kind='radioProgramme']").first
-          @media_identifier = item_ref.attribute "identifier" unless item_ref.nil?
+          @media_identifier = item_ref.attribute("identifier").value unless item_ref.nil?
 
           broadcast_date = item_ref.xpath("broadcast").first
           unless broadcast_date.nil?
