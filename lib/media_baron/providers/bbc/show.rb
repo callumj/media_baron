@@ -33,7 +33,7 @@ module MediaBaron
         end
 
         def populate_values
-          @title = @page.xpath("//div[@class='br-masthead__title']/div/a").attribute('title').value
+          @title = @page.xpath("//div[@class='br-masthead__title']/div/a|//*[@typeof='po:Brand']").attribute('title').value
           @description = @page.xpath("//*[@property='og:description']").attribute('content').value
         end
 
