@@ -40,8 +40,9 @@ module MediaBaron
 
         output = Tempfile.new(["ffmpeg",".m4a"])
         ffmpeg_full = "#{ffmpeg_base} -metadata artist=\"#{@author}\" -metadata title=\"#{@title}\" -metadata comments=\"#{@description}\" -acodec libfaac -ab #{bitrate}k -ar 44100 -ac 2 -y -loglevel panic #{output.path}"
-        `#{ffmpeg_full}`
-
+        IO.popen(ffmpeg_full).each do |line|
+          puts line.chomp
+        end
         file.unlink
 
         if MediaBaron.qt_faststart_bin.nil?
@@ -49,7 +50,9 @@ module MediaBaron
         else
           fast_file = Tempfile.new(["qt_faststart",".m4a"])
 
-          `#{MediaBaron.qt_faststart_bin} #{output.path} #{fast_file.path}`
+          IO.popen("#{MediaBaron.qt_faststart_bin} #{output.path} #{fast_file.path}").each do |line|
+            puts line.chomp
+          end
 
           fast_file.seek(0)
           if fast_file.size > 0
