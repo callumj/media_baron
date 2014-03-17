@@ -20,13 +20,14 @@ module MediaBaron
 
       def as_m4a(bitrate = nil)
         raise "Required binaries (ffmpeg & rtmpdump) are not available" unless MediaBaron.stable?
-        
+
         file = dump(bitrate)
 
         return nil if file.nil?
 
         raise "Couldn't locate the file (#{file.path})" unless File.exists?(file.path)
         ffmpeg_base = "#{MediaBaron.ffmpeg_bin} -i #{file.path}"
+        STDOUT.puts "Calling: #{ffmpeg_base}"
         bitrate = 128
         Open3.popen3(ffmpeg_base) do |stdin, stdout, stderr, wait_thr|
           stderr_bitrate = REGEX_FFMPEG.match(stderr.read())
@@ -40,6 +41,7 @@ module MediaBaron
 
         output = Tempfile.new(["ffmpeg",".m4a"])
         ffmpeg_full = "#{ffmpeg_base} -metadata artist=\"#{@author}\" -metadata title=\"#{@title}\" -metadata comments=\"#{@description}\" -acodec libfaac -ab #{bitrate}k -ar 44100 -ac 2 -y -loglevel panic #{output.path}"
+        STDOUT.puts "Calling: #{ffmpeg_full}"
         IO.popen(ffmpeg_full).each do |line|
           puts line.chomp
         end
@@ -49,8 +51,9 @@ module MediaBaron
           output
         else
           fast_file = Tempfile.new(["qt_faststart",".m4a"])
-
-          IO.popen("#{MediaBaron.qt_faststart_bin} #{output.path} #{fast_file.path}").each do |line|
+          cmd = "#{MediaBaron.qt_faststart_bin} #{output.path} #{fast_file.path}"
+          STDOUT.puts "Calling: #{cmd}"
+          IO.popen(cmd).each do |line|
             puts line.chomp
           end
 
