@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 require 'nokogiri'
 require 'tempfile'
-require 'open3'
+require 'open4'
 require 'cgi'
 
 module MediaBaron
@@ -99,11 +99,14 @@ module MediaBaron
 
           file = Tempfile.new(["rtmpdump",".flv"])
           application_ref = "#{target[:application]}?#{target[:string]}"
-          rtmpdump_args = [MediaBaron.rtmpdump_bin, "-r \"rtmp://#{target[:server]}:1935/#{application_ref}\"", "-a \"#{application_ref}\"", "-y \"#{target[:identifier]}\"", "-q", "-o \"#{file.path}\""]
+          rtmpdump_args = [MediaBaron.rtmpdump_bin, "-r \"rtmp://#{target[:server]}:1935/#{application_ref}\"", "-a \"#{application_ref}\"", "-y \"#{target[:identifier]}\"", "-o \"#{file.path}\""]
           dump_command =  rtmpdump_args.join " "
           STDOUT.puts "Calling: #{dump_command}"
-          IO.popen(dump_command).each do |line|
-            puts line.chomp
+
+          Open4::popen4(dump_command) do |pid, stdin, stdout, stderr|
+            STDOUT.puts "pid        : #{ pid }"
+            STDOUT.puts "stdout     : #{ stdout.read.strip }"
+            STDOUT.puts "stderr     : #{ stderr.read.strip }"
           end
 
           file
