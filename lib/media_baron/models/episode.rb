@@ -43,7 +43,7 @@ module MediaBaron
 
         output = Tempfile.new(["ffmpeg",".m4a"])
         ffmpeg_full = "#{ffmpeg_base} -metadata artist=\"#{@author}\" -metadata title=\"#{@title}\" -metadata comments=\"#{@description}\" -acodec libfaac -ab #{bitrate}k -ar 44100 -ac 2 -y -loglevel info #{output.path}"
-        STDOUT.puts "Calling: #{ffmpeg_full}"end
+        STDOUT.puts "Calling: #{ffmpeg_full}"
         Open4::popen4(ffmpeg_full) do |pid, stdin, stdout, stderr|
           STDOUT.puts "pid        : #{ pid }"
           STDOUT.puts "stdout     : #{ stdout.read.strip }"
