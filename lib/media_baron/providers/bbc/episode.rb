@@ -101,6 +101,7 @@ module MediaBaron
           application_ref = "#{target[:application]}?#{target[:string]}"
           rtmpdump_args = [MediaBaron.rtmpdump_bin, "-r \"rtmp://#{target[:server]}:1935/#{application_ref}\"", "-a \"#{application_ref}\"", "-y \"#{target[:identifier]}\"", "-q", "-o \"#{file.path}\""]
           dump_command =  rtmpdump_args.join " "
+          STDOUT.puts "Calling: #{dump_command}"
           IO.popen(dump_command).each do |line|
             puts line.chomp
           end
