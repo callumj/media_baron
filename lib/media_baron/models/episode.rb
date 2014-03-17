@@ -47,6 +47,9 @@ module MediaBaron
         end
         file.unlink
 
+        # disable QT faststart
+        return output
+
         if MediaBaron.qt_faststart_bin.nil?
           output
         else
